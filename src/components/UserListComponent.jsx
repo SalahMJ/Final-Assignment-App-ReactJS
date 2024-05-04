@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Pagination, Button, Modal, Form, Row, Col } from 'react-bootstrap';
+import { Table, Pagination, Button, Modal, Form, Row, Col,Spinner } from 'react-bootstrap';
 
 function UserList() {
     const [users, setUsers] = useState([]);
@@ -26,7 +26,8 @@ function UserList() {
     }, []);
 
     console.log(users);
-    //Just to check the data
+//Test fetch
+
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
@@ -88,7 +89,7 @@ function UserList() {
         <div>
             <h4>Github Users 🧑🏻‍💻</h4>
            
-
+            { !currentUsers?.length > 0 ? <Spinner className='text-center' animation="border" /> :'' }
             <Table striped bordered hover variant="dark" className='fixed-size-table'>
                 <thead>
                     <tr>
@@ -98,6 +99,7 @@ function UserList() {
                     </tr>
                 </thead>
                 <tbody>
+                   
                     {currentUsers.map(user => (
                         <tr key={user.id}>
                             <td>{user.login}</td>

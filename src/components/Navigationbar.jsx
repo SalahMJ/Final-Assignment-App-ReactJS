@@ -1,14 +1,32 @@
-import React from 'react'
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
-export const NavigationBar = () => {
-  return (
-        <>
-          <Navbar bg="secondary" data-bs-theme="dark">
-              <Navbar.Brand href="/">GitHub Accounts Data List</Navbar.Brand>
-          </Navbar>
-        </>
-      );
-    }
+function MainNavigationBar () {
+  const navigate = useNavigate();
+  const handleLogout = () => {
     
-    export default NavigationBar;
+    localStorage.removeItem('auth')
+    navigate('/logout');
+  };
+
+  return (
+    <Navbar bg="secondary" data-bs-theme="dark">
+      <Container>
+        <Navbar.Brand href="/">Final Assignment App</Navbar.Brand>
+        <Nav className="ms-auto">
+        <Nav.Link as={Link} to="/dashboard">
+                Dashboard
+              </Nav.Link>
+              <Nav.Link as={Link} to="/login">
+              Login
+            </Nav.Link>
+              <Button variant="danger" onClick={handleLogout}>
+                Logout
+              </Button>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default MainNavigationBar;
